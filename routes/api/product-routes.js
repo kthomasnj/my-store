@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  Product.findOne({include: Category}).then(data => res.json(data));
+  Product.findByPk(req.params.id, {include: Category}).then(data => res.json(data));
 });
 
 // create new product
@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => {
         .map((tag_id) => {
           return {
             product_id: req.params.id,
-            tag_id,
+            tag_id, 
           };
         });
       // figure out which ones to remove
